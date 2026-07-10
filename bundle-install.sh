@@ -52,8 +52,17 @@ native_launcher="$BUNDLE_DIR/native/native_host_launcher.sh"
 [ -f "$native_host" ] && [ ! -L "$native_host" ] \
   || fail "native host not found at $native_host"
 
-python3_path="$(command -v python3 || true)"
-[ -n "$python3_path" ] && [ -x "$python3_path" ] \
+python3_path="${BLACKJACKBOT_PYTHON3:-}"
+if [ -z "$python3_path" ]; then
+  python3_path="$(command -v python3 || true)"
+fi
+[ -n "$python3_path" ] \
+  || fail "python3 is required; install Python 3 or Xcode Command Line Tools, then retry"
+case "$python3_path" in
+  /*) ;;
+  *) fail "python3 path must be absolute" ;;
+esac
+[ -x "$python3_path" ] \
   || fail "python3 is required; install Python 3 or Xcode Command Line Tools, then retry"
 if ! "$python3_path" -c 'import sys; sys.exit(0)' >/dev/null 2>&1; then
   fail "python3 could not run; install Python 3 or finish the Command Line Tools setup, then retry"

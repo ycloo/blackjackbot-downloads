@@ -14,12 +14,13 @@ bash install.sh
 The public bootstrap normally places this directory at:
 
 ```text
-~/Library/Application Support/BlackjackBot/current
+~/BlackjackBot/current
 ```
 
 Keep the installed directory in place. Chrome's native messaging manifest
-points to its `native/native_host.py`, and runtime captures, logs, and ledger
-records are written under its `output/` directory.
+points to its `native/native_host.py`. In a managed install, runtime captures,
+logs, and ledger records are written to `~/BlackjackBot/output`, while this
+bundle's `output` path is a compatibility link to that stable directory.
 
 After the installer finishes:
 
@@ -40,10 +41,27 @@ Use the public bootstrap again rather than moving files by hand:
 curl -fsSL https://raw.githubusercontent.com/ycloo/blackjackbot-downloads/main/install-latest.sh | bash
 ```
 
-It verifies the release checksum and preserves the installed `output/`
-directory. Then click **Reload** for BlackjackBot on `chrome://extensions`.
+It verifies the release checksum and preserves `~/BlackjackBot/output`.
+Then click **Reload** for BlackjackBot on `chrome://extensions`.
 If macOS no longer shows the companion as enabled under Accessibility, re-add
 or re-enable it before running automation.
+
+Current releases check the public download each time **Start** is pressed. If
+a newer verified bundle is available, the log says
+`Extension outdated and updating now`, the bundle is installed, and automation
+does not start. Open `chrome://extensions`, click **Reload** for BlackjackBot,
+then press **Start** again. The version currently loaded by Chrome is shown
+beside **Blackjack Auditor**.
+
+Before the download check, Start verifies that the loaded panel, active
+background worker, exact native-host code, and installed bundle identify the
+same release.
+A legacy worker or version mismatch blocks automation and leaves a durable
+Reload requirement instead of continuing with mixed code.
+
+An installation from before this update support was added needs one manual run
+of the public bootstrap above followed by **Reload** on `chrome://extensions`.
+After that bootstrap, future updates can be downloaded by the **Start** check.
 
 ## Security Scope
 
