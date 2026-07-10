@@ -43,8 +43,10 @@ curl -fsSL https://raw.githubusercontent.com/ycloo/blackjackbot-downloads/main/i
 
 It verifies the release checksum and preserves `~/BlackjackBot/output`.
 Then click **Reload** for BlackjackBot on `chrome://extensions`.
-If macOS no longer shows the companion as enabled under Accessibility, re-add
-or re-enable it before running automation.
+The installer preserves a valid unchanged companion app, including its existing
+macOS Accessibility approval. Only a release with a new companion revision, or
+an installed app that fails validation, replaces it and may require enabling
+Accessibility again.
 
 Current releases check the public download each time **Start** is pressed. If
 a newer verified bundle is available, the log says
