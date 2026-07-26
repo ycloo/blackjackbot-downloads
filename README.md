@@ -75,7 +75,7 @@ To pin a release:
 
 ```bash
 curl -fsSL https://raw.githubusercontent.com/ycloo/blackjackbot-downloads/main/install-latest.sh \
-  | BLACKJACKBOT_VERSION=v0.1.31 bash
+  | BLACKJACKBOT_VERSION=v0.1.32 bash
 ```
 
 ## Security Scope
